@@ -1,0 +1,46 @@
+name = "ocio"
+
+version = "1.1.0"
+
+authors = [
+    "Sony Pictures Imageworks"
+]
+
+description = \
+    """
+    OpenColorIO (OCIO) is a complete color management solution geared towards motion picture production with an
+    emphasis on visual effects and computer animation. OCIO provides a straightforward and consistent user experience
+    across all supporting applications while allowing for sophisticated back-end configuration options suitable for
+    high-end production usage. OCIO is compatible with the Academy Color Encoding Specification (ACES) and is
+    LUT-format agnostic, supporting many popular formats.
+    """
+
+requires = [
+    "boost-1.61+",
+    "cmake-3+",
+    "gcc-6+",
+    "python-2.7+<3",
+    "yaml_cpp-0.5+<0.6",
+    "tinyxml-2.6+"
+]
+
+variants = [
+    ["platform-linux"]
+]
+
+build_system = "cmake"
+
+with scope("config") as config:
+    config.build_thread_count = "logical_cores"
+
+uuid = "ocio-{version}".format(version=str(version))
+
+def commands():
+    env.PATH.prepend("{root}/bin")
+    env.LD_LIBRARY_PATH.prepend("{root}/lib")
+    env.PYTHONPATH.prepend("{root}/lib/python2.7/site-packages")
+
+    # Helper environment variables.
+    env.OCIO_BINARY_PATH.set("{root}/bin")
+    env.OCIO_INCLUDE_PATH.set("{root}/include")
+    env.OCIO_LIBRARY_PATH.set("{root}/lib")
