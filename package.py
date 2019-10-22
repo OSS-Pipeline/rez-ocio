@@ -40,6 +40,7 @@ def commands():
     env.LD_LIBRARY_PATH.prepend("{root}/lib")
     env.PYTHONPATH.prepend("{root}/lib/python" + str(env.REZ_PYTHON_MAJOR_VERSION) + "." + str(env.REZ_PYTHON_MINOR_VERSION) + "/site-packages")
     env.PKG_CONFIG_PATH.prepend("{root}/lib/pkgconfig")
+    env.CMAKE_MODULE_PATH.prepend("{root}:{root}/cmake")
 
     # Helper environment variables.
     env.OCIO_BINARY_PATH.set("{root}/bin")
